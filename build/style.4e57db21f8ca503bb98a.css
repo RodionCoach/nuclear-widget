@@ -203,7 +203,7 @@ path {
   position: absolute;
   width: 100%;
   height: fit-content;
-  min-height: 255px;
+  min-height: 360px;
   background-color: white;
   top: -30px;
   left: 50%;

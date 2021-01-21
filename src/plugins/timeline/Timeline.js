@@ -3,7 +3,7 @@ import "./timeline.css";
 const LAYOUT = `
     <div class="loadingStatus">Loading...</div>
     <div class="progressBar"></div>
-    <canvas class="view"></canvas>
+    <canvas height="360" class="view"></canvas>
     <div class="controlsWrapper">
       <button class="playButton">Play</button>
       <input class="rangeControl" type="range" value="0" min="0">

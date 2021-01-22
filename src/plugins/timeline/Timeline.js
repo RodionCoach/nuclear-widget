@@ -89,6 +89,7 @@ export default class Timeline {
   cacheImages() {
     const list = [];
     for (let i = 0; i < this.data.length; i++) {
+      try {
       fetch(this.data[i]).then((response) => {
         caches.open("widget-cache").then((cache) => {
           cache.put(this.data[i], response).then(() => {
@@ -97,6 +98,9 @@ export default class Timeline {
           });
         });
       });
+    } catch (e) {
+      console.log("Error", e);
+    }
     }
   }
 

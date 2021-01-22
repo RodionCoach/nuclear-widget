@@ -3,7 +3,7 @@ import "./timeline.css";
 const LAYOUT = `
     <div class="loadingStatus">Loading...</div>
     <div class="progressBar"></div>
-    <canvas height="360" class="view"></canvas>
+    <canvas class="view"></canvas>
     <div class="controlsWrapper">
       <button class="playButton">Play</button>
       <input class="rangeControl" type="range" value="0" min="0">
@@ -81,7 +81,7 @@ export default class Timeline {
   generateFrameData() {
     for (let i = 0; i < this.framesCount; i++) {
       this.data
-      .push(`./${this.framesFolder}/${this.namePattern}_${("0000" + i)
+      .push(`.${this.framesFolder}/${this.namePattern}_${("0000" + i)
       .slice(-5)}.${this.fileExtension}`);
     }
   }
@@ -89,18 +89,10 @@ export default class Timeline {
   cacheImages() {
     const list = [];
     for (let i = 0; i < this.data.length; i++) {
-      try {
-      fetch(this.data[i]).then((response) => {
-        caches.open("widget-cache").then((cache) => {
-          cache.put(this.data[i], response).then(() => {
-            list.push(i);
-            this.setLoadingProgress(100 - (list.length / this.data.length * 100));
-          });
-        });
+      fetch(this.data[i]).then(() => {
+        list.push(i);
+        this.setLoadingProgress(100 - (list.length / this.data.length * 100));
       });
-    } catch (e) {
-      console.log("Error", e);
-    }
     }
   }
 
@@ -108,7 +100,7 @@ export default class Timeline {
     this.currentFrame = frame;
     this.rangeControl.value = frame;
     let image = new Image();
-    image.src = `./${this.framesFolder}/${this.namePattern}_${("0000" + frame)
+    image.src = `.${this.framesFolder}/${this.namePattern}_${("0000" + frame)
     .slice(-5)}.${this.fileExtension}`
     image.onload = () => {
       this.view.height = image.naturalHeight;
